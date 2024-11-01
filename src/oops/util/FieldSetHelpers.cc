@@ -305,8 +305,8 @@ atlas::FieldSet createSmoothFieldSet(const eckit::mpi::Comm & comm,
         for (std::size_t n1 = m1; n1 <= static_cast<std::size_t>(N); ++n1) {
           for (const auto & part : {"real", "imaginary"}) {
             for (atlas::idx_t jlevel = 0; jlevel < field.shape(1); ++jlevel) {
-              if (n1 == 0 && (field.name() == "streamfunction" ||
-                              field.name() == "velocity_potential")) {
+              if (n1 == 0 && (field.name() == "air_horizontal_streamfunction" ||
+                              field.name() == "air_horizontal_velocity_potential")) {
                 view(jnode, jlevel) = 0.0;  // Force zero mean
               } else {
                 view(jnode, jlevel) *= gaussian(n1, sigma);
