@@ -54,8 +54,8 @@ class ExternalDFIParameters : public ApplicationParameters {
 
   RequiredParameter<util::Duration> forecastLength{"forecast length", "forecast length", this};
 
-  Parameter<PostTimerParameters> prints{"prints",
-                   "options passed to the object writing out forecast fields", {}, this};
+  Parameter<eckit::LocalConfiguration> prints{"prints", "prints during forecast",
+                                              eckit::LocalConfiguration(), this};
   RequiredParameter<eckit::LocalConfiguration> output{"output", "where to write output", this};
 
   RequiredParameter<eckit::LocalConfiguration> dfi{"dfi", "DFI parameters", this};

@@ -66,7 +66,7 @@ class HofX4DParameters : public ApplicationParameters {
   RequiredParameter<GeometryParameters_> geometry{"geometry", this};
 
   /// Options passed to the object writing out forecast fields.
-  Parameter<PostTimerParameters> prints{"prints", {}, this};
+  Parameter<eckit::LocalConfiguration> prints{"prints", eckit::LocalConfiguration(), this};
 
   /// Whether to save the H(x) vector as ObsValues.
   Parameter<bool> makeObs{"make obs", false, this};

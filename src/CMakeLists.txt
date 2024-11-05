@@ -171,7 +171,6 @@ oops/base/PostProcessor.h
 oops/base/PostProcessorTLAD.h
 oops/base/PostTimer.cc
 oops/base/PostTimer.h
-oops/base/PostTimerParameters.h
 oops/base/RTPP.h
 oops/base/RTPS.h
 oops/base/SamplingMethodSelector.h
