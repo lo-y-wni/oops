@@ -105,7 +105,6 @@ template<typename MODEL, typename OBS> class CostJcDFI : public CostTermBase<MOD
   const Geometry_ & resol_;
   const util::Duration tstep_;
   const Geometry_ * tlres_;
-  util::Duration tlstep_;
   mutable std::shared_ptr<WeightedDiff<MODEL, Increment_, State_> > filter_;
   mutable std::shared_ptr<WeightedDiffTLAD<MODEL> > ftlad_;
   Variables vars_;
@@ -119,7 +118,7 @@ CostJcDFI<MODEL, OBS>::CostJcDFI(const eckit::Configuration & conf, const Geomet
                                  const util::DateTime & vt, const util::Duration & span,
                                  const util::Duration & tstep)
   : vt_(vt), span_(span), norm_(), wfct_(), gradFG_(),
-    resol_(resol), tstep_(tstep), tlres_(), tlstep_(), filter_(),
+    resol_(resol), tstep_(tstep), tlres_(), filter_(),
     vars_(conf, "filtered variables"), zhack_(util::missingValue<double>())
 {
   if (conf.has("norm type")) {
@@ -178,8 +177,8 @@ template<typename MODEL, typename OBS>
 void CostJcDFI<MODEL, OBS>::setPostProcTraj(const CtrlVar_ &, const eckit::Configuration & conf,
                                             const Geometry_ & tlres, PostProcTLAD_ & pptraj) {
   tlres_ = &tlres;
-  tlstep_ = util::Duration(conf.getString("linear model.tstep", tstep_.toString()));
-  ftlad_.reset(new WeightedDiffTLAD<MODEL>(vars_, vt_, span_, tstep_, *tlres_, *wfct_));
+  const util::Duration tlstep(conf.getString("linear model.tstep", tstep_.toString()));
+  ftlad_.reset(new WeightedDiffTLAD<MODEL>(vars_, vt_, span_, tlstep, *tlres_, *wfct_));
   pptraj.enrollProcessor(ftlad_);
 }
 
