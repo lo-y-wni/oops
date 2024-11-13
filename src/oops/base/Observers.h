@@ -43,9 +43,6 @@ namespace oops {
 template <typename MODEL, typename OBS>
 class ObserversParameters : public oops::Parameters {
   OOPS_CONCRETE_PARAMETERS(ObserversParameters, Parameters)
-
-  typedef typename VariableChange<MODEL>::Parameters_ VarChangeParameters_;
-
  public:
   Parameter<bool> obsPerturbations{"obs perturbations", false, this};
   Parameter<eckit::LocalConfiguration> observers{"observers", {}, this};
