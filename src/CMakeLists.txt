@@ -133,7 +133,6 @@ oops/base/LinearVariableChangeParametersBase.h
 oops/base/Localization.h
 oops/base/Model.h
 oops/base/ModelSpaceCovarianceBase.h
-oops/base/ModelSpaceCovarianceParametersBase.h
 oops/base/MultiplicativeInflation.h
 oops/base/NormBase.h
 oops/base/ObsAuxControls.h

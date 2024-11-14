@@ -41,7 +41,6 @@ template <typename MODEL> class SqrtOfVertLocParameters : public ApplicationPara
   OOPS_CONCRETE_PARAMETERS(SqrtOfVertLocParameters, ApplicationParameters)
 
  public:
-  typedef ModelSpaceCovarianceParametersWrapper<MODEL> CovarianceParameters_;
   typedef typename Geometry<MODEL>::Parameters_        GeometryParameters_;
   typedef typename Increment<MODEL>::WriteParameters_  WriteParameters_;
 
@@ -54,7 +53,7 @@ template <typename MODEL> class SqrtOfVertLocParameters : public ApplicationPara
   RequiredParameter<Variables> perturbedVariables{"perturbed variables",
         "list of variables to perturb", this};
 
-  RequiredParameter<CovarianceParameters_> backgroundError{"background error",
+  RequiredParameter<eckit::LocalConfiguration> backgroundError{"background error",
         "background error covariance model", this};
 
   RequiredParameter<size_t> samples{"number of random samples", this};
@@ -108,10 +107,9 @@ template <typename MODEL> class SqrtOfVertLoc : public Application {
     const Variables & vars = params.perturbedVariables;
 
 //  Setup B matrix
-    const auto &covarParams =
-        params.backgroundError.value().covarianceParameters;
+    const eckit::LocalConfiguration covConf(fullConfig, "background error");
     std::unique_ptr< ModelSpaceCovarianceBase<MODEL> >
-      Bmat(CovarianceFactory<MODEL>::create(geometry, vars, covarParams, xx, xx));
+      Bmat(CovarianceFactory<MODEL>::create(geometry, vars, covConf, xx, xx));
 
 //  Retrieve vertical eigenvectors from B
     const size_t samples = params.samples;
