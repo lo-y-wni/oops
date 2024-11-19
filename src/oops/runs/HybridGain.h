@@ -42,10 +42,8 @@ template <typename MODEL> class HybridGainParameters : public ApplicationParamet
   OOPS_CONCRETE_PARAMETERS(HybridGainParameters, ApplicationParameters);
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_   GeometryParameters_;
-
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> geometry{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", this};
 
   /// Hybrid weights.
   RequiredParameter<HybridWeightsParameters> hybridWeights{"hybrid weights", this};

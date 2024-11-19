@@ -15,6 +15,8 @@
 #include "oops/base/State.h"
 #include "oops/util/Logger.h"
 #include "oops/util/ObjectCounter.h"
+#include "oops/util/parameters/GenericParameters.h"
+#include "oops/util/parameters/HasParameters_.h"
 #include "oops/util/Printable.h"
 #include "oops/util/Timer.h"
 

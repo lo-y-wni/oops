@@ -61,13 +61,11 @@ template <typename MODEL> class ConvertStateParameters : public ApplicationParam
   typedef Geometry<MODEL> Geometry_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
-
   /// Input Geometry parameters.
-  RequiredParameter<GeometryParameters_> inputGeometry{"input geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> inputGeometry{"input geometry", this};
 
   /// Output Geometry parameters.
-  RequiredParameter<GeometryParameters_> outputGeometry{"output geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> outputGeometry{"output geometry", this};
 
   /// Variable change parameters (and option to do inverse).
   OptionalParameter<VarChangeParameters<MODEL>> varChange{"variable change", this};

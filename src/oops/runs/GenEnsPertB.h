@@ -43,12 +43,11 @@ template <typename MODEL> class GenEnsPertBParameters : public ApplicationParame
   OOPS_CONCRETE_PARAMETERS(GenEnsPertBParameters, ApplicationParameters)
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_        GeometryParameters_;
   typedef State<MODEL>                                 State_;
   typedef ModelAuxControl<MODEL>                       ModelAux_;
 
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> geometry{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", this};
 
   /// Model parameters.
   RequiredParameter<eckit::LocalConfiguration> model{"model", this};

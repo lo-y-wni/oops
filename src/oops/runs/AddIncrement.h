@@ -50,12 +50,11 @@ class AddIncrementParameters : public ApplicationParameters {
   typedef State<MODEL> State_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
   typedef IncrementParameters<MODEL> IncrementParameters_;
 
-  RequiredParameter<GeometryParameters_> stateGeometry{
+  RequiredParameter<eckit::LocalConfiguration> stateGeometry{
     "state geometry", "State resolution", this};
-  RequiredParameter<GeometryParameters_> incrementGeometry{
+  RequiredParameter<eckit::LocalConfiguration> incrementGeometry{
     "increment geometry", "Increment resolution", this};
 
   RequiredParameter<eckit::LocalConfiguration> state{

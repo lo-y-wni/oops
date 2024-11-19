@@ -14,7 +14,6 @@
 #include <utility>
 #include <vector>
 
-#include "oops/base/ForecastParameters.h"
 #include "oops/base/Geometry.h"
 #include "oops/base/IncrementSet.h"
 #include "oops/base/Model.h"
@@ -61,7 +60,6 @@ class EnsembleForecastApplication : public Application {
   typedef ModelAuxControl<MODEL>       ModelAux_;
   typedef State<MODEL>                 State_;
   typedef StateSet<MODEL>              StateSet_;
-  typedef ForecastAppParameters<MODEL> ForecastAppParameters_;
 
  public:
 // -----------------------------------------------------------------------------
@@ -113,22 +111,17 @@ class EnsembleForecastApplication : public Application {
     eckit::PathName confPath = files[mymember-1];
     eckit::YAMLConfiguration memberConf(confPath);
 
-    ForecastAppParameters_ fcstparams;
-    fcstparams.validate(memberConf);
-    fcstparams.deserialize(memberConf);
-    const Geometry_ resol(fcstparams.fcstConf.geometry, commMember);
+    const Geometry_ resol(eckit::LocalConfiguration(memberConf, "geometry"), commMember);
 
-    eckit::LocalConfiguration initialCondition =
-          memberConf.getSubConfiguration("initial condition");
     std::vector<int> ens;  // vector of ensemble numbers
     PostProcessor<State_> post;  // Create the post processor where StateSet will be stored
 //  Setup times
     Log::info() << "setting up times" << std::endl;
-    eckit::LocalConfiguration model = fcstparams.fcstConf.model;
+    const eckit::LocalConfiguration model(memberConf, "model");
     const util::Duration tstep(model.getString("tstep"));
-    eckit::LocalConfiguration ic = fcstparams.fcstConf.initialCondition;
+    const eckit::LocalConfiguration ic(memberConf, "initial condition");
     const util::DateTime bgndate(ic.getString("datetime"));
-    const util::Duration fclength = fcstparams.fcstConf.forecastLength;
+    const util::Duration fclength(ic.getString("forecast length"));
     const util::DateTime enddate(bgndate + fclength);
     std::vector<util::DateTime> times;
 

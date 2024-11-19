@@ -96,7 +96,6 @@ class LocalEnsembleDAParameters : public ApplicationParameters {
   typedef Increment<MODEL> Increment_;
 
  public:
-  typedef typename Geometry_::Parameters_       GeometryParameters_;
   typedef typename Increment_::WriteParameters_ IncrementWriteParameters_;
 
   /// Options describing the assimilation time window.
@@ -107,7 +106,7 @@ class LocalEnsembleDAParameters : public ApplicationParameters {
   /// now.
   RequiredParameter<eckit::LocalConfiguration> observations{"observations", this};
 
-  RequiredParameter<GeometryParameters_> geometry{"geometry",
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry",
           "geometry used for all of the ensemble members and increments", this};
 
   Parameter<LocalEnsembleDADriverParameters> driver{"driver",

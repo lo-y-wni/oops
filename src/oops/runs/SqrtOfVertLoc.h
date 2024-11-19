@@ -41,12 +41,11 @@ template <typename MODEL> class SqrtOfVertLocParameters : public ApplicationPara
   OOPS_CONCRETE_PARAMETERS(SqrtOfVertLocParameters, ApplicationParameters)
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_        GeometryParameters_;
   typedef typename Increment<MODEL>::WriteParameters_  WriteParameters_;
 
   Parameter<double> truncationTolerance{"truncation tolerance", 1.0, this};
 
-  RequiredParameter<GeometryParameters_> geometry{"geometry", "geometry parameters", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", "geometry parameters", this};
   RequiredParameter<eckit::LocalConfiguration>
         background{"background", "background parameters", this};
 

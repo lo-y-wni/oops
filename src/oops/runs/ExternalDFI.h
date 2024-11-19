@@ -42,9 +42,7 @@ class ExternalDFIParameters : public ApplicationParameters {
   typedef ModelAuxControl<MODEL>     ModelAux_;
 
  public:
-  typedef typename Geometry_::Parameters_     GeometryParameters_;
-
-  RequiredParameter<GeometryParameters_> geometry{"geometry",
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry",
                    "geometry for initial state", this};
   RequiredParameter<eckit::LocalConfiguration> initialCondition{"initial condition",
                    "initial state parameters", this};

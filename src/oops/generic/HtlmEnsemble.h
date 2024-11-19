@@ -61,15 +61,14 @@ class NonlinearEnsembleParameters : public Parameters {
 template <typename MODEL>
 class HtlmEnsembleParameters : public Parameters {
   OOPS_CONCRETE_PARAMETERS(HtlmEnsembleParameters, Parameters);
-  typedef typename Geometry<MODEL>::Parameters_    GeometryParameters_;
   typedef NonlinearEnsembleParameters<MODEL>       NonlinearEnsembleParameters_;
   typedef StateEnsembleParameters<MODEL>           StateEnsembleParameters_;
 
  public:
   RequiredParameter<eckit::LocalConfiguration> model{"model", this};
-  RequiredParameter<GeometryParameters_> modelGeometry{"model geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> modelGeometry{"model geometry", this};
   OptionalParameter<eckit::LocalConfiguration> modelForEnsemble{"model for ensemble", this};
-  OptionalParameter<GeometryParameters_> geometryForEnsemble{"geometry for ensemble", this};
+  OptionalParameter<eckit::LocalConfiguration> geometryForEnsemble{"geometry for ensemble", this};
   RequiredParameter<eckit::LocalConfiguration> nonlinearControl{"nonlinear control", this};
   RequiredParameter<NonlinearEnsembleParameters_> nonlinearEnsemble{"nonlinear ensemble", this};
 };

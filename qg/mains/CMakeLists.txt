@@ -22,7 +22,6 @@ ecbuild_add_executable( TARGET  qg_forecast.x
                         SOURCES qgForecast.cc
                         LIBS    qg
                        )
-oops_output_json_schema( qg_forecast.x )
 
 ecbuild_add_executable( TARGET  qg_gen_ens_pert_B.x
                         SOURCES qgGenEnsPertB.cc
@@ -44,13 +43,11 @@ ecbuild_add_executable( TARGET  qg_rescale_ens_perts.x
                         SOURCES qgRescaleEnsPerts.cc
                         LIBS    qg
                       )
-# TODO: oops_output_json_schema( qg_4dvar.x )
 
 ecbuild_add_executable( TARGET  qg_ControlPert.x
                         SOURCES qgControlPert.cc
                         LIBS    qg
                       )
-# TODO: oops_output_json_schema( qg_ControlPert.x )
 
 ecbuild_add_executable( TARGET  qg_hofx.x
                         SOURCES qgHofX.cc
@@ -128,7 +125,6 @@ ecbuild_add_executable( TARGET  qg_linearization_error.x
                         SOURCES qgLinearizationError.cc
                         LIBS    qg
                       )
-# TODO: oops_output_json_schema( qg_linearization_error.x )
 
 ecbuild_add_executable( TARGET  qg_templated_eda.x
                         SOURCES qgTemplatedEDA.cc

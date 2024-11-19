@@ -44,8 +44,6 @@ class HofX3DParameters : public ApplicationParameters {
   typedef State<MODEL> State_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
-
   /// Options describing the assimilation time window.
   RequiredParameter<eckit::LocalConfiguration> timeWindow{"time window", this};
 
@@ -53,7 +51,7 @@ class HofX3DParameters : public ApplicationParameters {
   RequiredParameter<eckit::LocalConfiguration> observations{"observations", this};
 
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> geometry{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", this};
 
   /// Whether to save the H(x) vector as ObsValues.
   Parameter<bool> makeObs{"make obs", false, this};

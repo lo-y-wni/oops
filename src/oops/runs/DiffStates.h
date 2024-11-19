@@ -34,14 +34,13 @@ class DiffStatesParameters : public ApplicationParameters {
   OOPS_CONCRETE_PARAMETERS(DiffStatesParameters, ApplicationParameters)
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_ GeometryParameters_;
   typedef typename Increment<MODEL>::WriteParameters_ IncrementWriteParameters_;
 
   /// State geometry parameters.
-  RequiredParameter<GeometryParameters_> stateGeometryConf{"state geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> stateGeometryConf{"state geometry", this};
 
   /// Increment geometry parameters.
-  RequiredParameter<GeometryParameters_> incGeometryConf{"increment geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> incGeometryConf{"increment geometry", this};
 
   /// First state parameters.
   RequiredParameter<eckit::LocalConfiguration> stateConf1{"state1", this};

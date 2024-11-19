@@ -39,12 +39,11 @@ class EnsMeanAndVarianceParameters : public ApplicationParameters {
   OOPS_CONCRETE_PARAMETERS(EnsMeanAndVarianceParameters, ApplicationParameters)
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_           GeometryParameters_;
   typedef typename Increment<MODEL>::WriteParameters_     IncrementWriteParameters_;
   typedef StateEnsembleParameters<MODEL>                  StateEnsembleParameters_;
 
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> resolConfig{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> resolConfig{"geometry", this};
 
   /// Ensemble parameters.
   RequiredParameter<StateEnsembleParameters_> ensembleConfig{"ensemble", this};

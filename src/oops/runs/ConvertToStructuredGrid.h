@@ -43,9 +43,7 @@ template <typename MODEL> class StateToStructuredGridParameters : public Applica
   typedef Geometry<MODEL>                Geometry_;
 
  public:
-  typedef typename Geometry_::Parameters_   GeometryParameters_;
-
-  RequiredParameter<GeometryParameters_>       stateGeometry{"state geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> stateGeometry{"state geometry", this};
   RequiredParameter<eckit::LocalConfiguration> state{"state", this};
   RequiredParameter<eckit::LocalConfiguration> structuredGridInterp
                    {"structured grid interpolation", this};
@@ -58,9 +56,8 @@ template <typename MODEL> class IncToStructuredGridParameters : public Applicati
 
  public:
   typedef typename Increment_::ReadParameters_      IncrementParameters_;
-  typedef typename Geometry_::Parameters_           GeometryParameters_;
 
-  RequiredParameter<GeometryParameters_>        incGeometry{"increment geometry", this};
+  RequiredParameter<eckit::LocalConfiguration>  incGeometry{"increment geometry", this};
   RequiredParameter<Variables>                  vars{"variables", this};
   RequiredParameter<util::DateTime>             date{"date", this};
   RequiredParameter<IncrementParameters_>       increment{"increment", this};
@@ -74,9 +71,7 @@ template <typename MODEL> class StateEnsToStructuredGridParameters : public Appl
   typedef Geometry<MODEL>                Geometry_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
-
-  RequiredParameter<GeometryParameters_>       stateGeometry{"state geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> stateGeometry{"state geometry", this};
   RequiredParameter<StateEnsembleParameters_>  stateEnsemble{"states", this};
   RequiredParameter<eckit::LocalConfiguration> structuredGridInterp
                    {"structured grid interpolation", this};
@@ -88,9 +83,7 @@ template <typename MODEL> class IncEnsToStructuredGridParameters : public Applic
   typedef Geometry<MODEL>                Geometry_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
-
-  RequiredParameter<GeometryParameters_>          incrementGeometry{"increment geometry", this};
+  RequiredParameter<eckit::LocalConfiguration>    incrementGeometry{"increment geometry", this};
   RequiredParameter<IncrementEnsembleParameters_> incrementEnsemble{"increments", this};
   RequiredParameter<Variables>                    incrementVariables{"increment variables", this};
   RequiredParameter<eckit::LocalConfiguration>    structuredGridInterp

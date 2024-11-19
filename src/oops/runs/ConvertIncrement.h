@@ -61,14 +61,13 @@ template <typename MODEL> class ConvertIncrementParameters : public ApplicationP
   OOPS_CONCRETE_PARAMETERS(ConvertIncrementParameters, ApplicationParameters);
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_ GeometryParameters_;
   typedef IncrementParameters<MODEL>            IncrementParameters_;
 
   /// Input geometry parameters.
-  RequiredParameter<GeometryParameters_> inputGeometry{"input geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> inputGeometry{"input geometry", this};
 
   /// Output geometry parameters.
-  RequiredParameter<GeometryParameters_> outputGeometry{"output geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> outputGeometry{"output geometry", this};
 
   /// Linear variable change.
   OptionalParameter<LinearVarChangeParameters<MODEL>> linearVarChange{"linear variable change",

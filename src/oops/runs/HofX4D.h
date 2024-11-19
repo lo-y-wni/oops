@@ -54,8 +54,6 @@ class HofX4DParameters : public ApplicationParameters {
   typedef ModelAuxControl<MODEL>     ModelAux_;
 
  public:
-  typedef typename Geometry_::Parameters_ GeometryParameters_;
-
   /// Options describing the assimilation time window.
   RequiredParameter<eckit::LocalConfiguration> timeWindow{"time window", this};
 
@@ -63,7 +61,7 @@ class HofX4DParameters : public ApplicationParameters {
   RequiredParameter<eckit::LocalConfiguration> observations{"observations", this};
 
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> geometry{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", this};
 
   /// Options passed to the object writing out forecast fields.
   Parameter<eckit::LocalConfiguration> prints{"prints", eckit::LocalConfiguration(), this};

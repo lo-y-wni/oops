@@ -22,6 +22,7 @@
 #include "oops/util/ObjectCounter.h"
 #include "oops/util/parameters/ConfigurationParameter.h"
 #include "oops/util/parameters/GenericParameters.h"
+#include "oops/util/parameters/HasParameters_.h"
 #include "oops/util/parameters/Parameters.h"
 #include "oops/util/parameters/ParametersOrConfiguration.h"
 #include "oops/util/Printable.h"

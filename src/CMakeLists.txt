@@ -105,7 +105,6 @@ oops/base/FieldSet4D.cc
 oops/base/FieldSet4D.h
 oops/base/FieldSets.cc
 oops/base/FieldSets.h
-oops/base/ForecastParameters.h
 oops/base/GeneralizedDepartures.h
 oops/base/Geometry.h
 oops/base/GeometryData.cc
@@ -510,7 +509,6 @@ test/interface/ErrorCovariance.h
 test/interface/FieldSet4D.h
 test/interface/Geometry.h
 test/interface/GeometryIterator.h
-test/interface/GeometryFixture.h
 test/interface/GeoVaLs.h
 test/interface/GetValues.h
 test/interface/GlobalInterpolator.h

@@ -60,9 +60,7 @@ template <typename MODEL> class EnsembleInflationParameters : public Application
   typedef State<MODEL> State_;
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_ GeometryParameters_;
-
-  RequiredParameter<GeometryParameters_> geometry{
+  RequiredParameter<eckit::LocalConfiguration> geometry{
       "geometry", "Geometry parameters", this};
   RequiredParameter<eckit::LocalConfiguration> background{
       "background", "Background ensemble states config", this};

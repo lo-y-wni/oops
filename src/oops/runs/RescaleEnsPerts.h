@@ -36,11 +36,10 @@ template <typename MODEL> class RescaleEnsPertsParameters : public ApplicationPa
   typedef Increment<MODEL> Increment_;
 
  public:
-  typedef typename Geometry<MODEL>::Parameters_ GeometryParameters_;
   typedef typename Increment_::ReadParameters_ IncrementReadParameters_;
   typedef typename Increment_::WriteParameters_ IncrementWriteParameters_;
 
-  RequiredParameter<GeometryParameters_> geometry{
+  RequiredParameter<eckit::LocalConfiguration> geometry{
       "geometry", "Geometry parameters", this};
   RequiredParameter<std::vector<IncrementReadParameters_>> sample{
       "sample increments", "Sample of archived analysis increments", this};

@@ -38,11 +38,10 @@ class EnsRecenterParameters : public ApplicationParameters {
   typedef State<MODEL> State_;
 
  public:
-  typedef typename Geometry_::Parameters_   GeometryParameters_;
   typedef StateEnsembleParameters<MODEL>    StateEnsembleParameters_;
 
   /// Geometry parameters.
-  RequiredParameter<GeometryParameters_> geometry{"geometry", this};
+  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry", this};
 
   /// Central state parameters.
   RequiredParameter<eckit::LocalConfiguration> center{"center", this};
