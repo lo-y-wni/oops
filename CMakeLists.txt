@@ -66,6 +66,10 @@ else()
     find_package( atlas 0.35.0 REQUIRED )
 endif()
 
+if( atlas_VERSION VERSION_GREATER_EQUAL "0.39.0" )
+  find_package( hic REQUIRED )
+endif()
+
 #Optional Dependencies
 if( jedicmake_FOUND AND ENABLE_GPTL )
     find_package( GPTL )
