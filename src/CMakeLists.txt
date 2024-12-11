@@ -854,35 +854,53 @@ ecbuild_add_executable(
   SOURCES test/generic/LocalInterpolator.cc
   LIBS oops
 )
-ecbuild_add_test( TARGET  test_generic_atlas_interpolator
-                  COMMAND test_oops_generic_local_interpolator
-                  ARGS    "test/testinput/atlas_interpolator.yaml"
-                  LIBS    oops eckit )
-ecbuild_add_test( TARGET  test_generic_unstructured_interpolator
-                  COMMAND test_oops_generic_local_interpolator
-                  ARGS    "test/testinput/unstructured_interpolator.yaml"
-                  LIBS    oops eckit )
 
 ecbuild_add_executable(
   TARGET  test_oops_generic_global_interpolator
   SOURCES test/generic/GlobalInterpolator.cc
   LIBS oops
 )
+
+# Atlas interpolation tests require a newer version of Atlas than the rest of OOPS.
+if((atlas_VERSION VERSION_GREATER 0.38.0) OR (atlas_VERSION VERSION_EQUAL 0.38.0))
+
+ecbuild_add_test( TARGET  test_generic_atlas_interpolator
+                  COMMAND test_oops_generic_local_interpolator
+                  ARGS    "test/testinput/atlas_interpolator.yaml"
+                  LIBS    oops eckit )
+
 ecbuild_add_test( TARGET  test_generic_atlas_global_interpolator
                   COMMAND test_oops_generic_global_interpolator
                   ARGS    "test/testinput/atlas_global_interpolator.yaml"
                   LIBS    oops eckit )
-# TODO: fix hang in AtlasInterpolator on multiple MPI ranks
-#       see https://github.com/JCSDA-internal/oops/issues/2664
-#ecbuild_add_test( TARGET  test_generic_atlas_global_interpolator_parallel
-#                  COMMAND test_oops_generic_global_interpolator
-#                  MPI     4
-#                  ARGS    "test/testinput/atlas_global_interpolator.yaml"
-#                  LIBS    oops eckit )
+
+ecbuild_add_test( TARGET  test_generic_atlas_global_interpolator_parallel
+                  COMMAND test_oops_generic_global_interpolator
+                  MPI     4
+                  ARGS    "test/testinput/atlas_global_interpolator.yaml"
+                  LIBS    oops eckit )
+
+else()
+set(disabled_tests
+"test_generic_atlas_global_interpolator"
+"test_generic_atlas_global_interpolator_parallel"
+)
+message(WARNING "Atlas version is ${atlas_VERSION}. "
+                "Some interpolation features are not supported. "
+                "Use 0.38.0 or greater to enable these features and the following tests: "
+                "${disabled_tests}")
+endif()
+
+ecbuild_add_test( TARGET  test_generic_unstructured_interpolator
+                  COMMAND test_oops_generic_local_interpolator
+                  ARGS    "test/testinput/unstructured_interpolator.yaml"
+                  LIBS    oops eckit )
+
 ecbuild_add_test( TARGET  test_generic_unstructured_global_interpolator
                   COMMAND test_oops_generic_global_interpolator
                   ARGS    "test/testinput/unstructured_global_interpolator.yaml"
                   LIBS    oops eckit )
+
 ecbuild_add_test( TARGET  test_generic_unstructured_global_interpolator_parallel
                   COMMAND test_oops_generic_global_interpolator
                   MPI     4
