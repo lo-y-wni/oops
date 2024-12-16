@@ -33,38 +33,11 @@
 
 namespace oops {
 
-template <typename MODEL>
-class ExternalDFIParameters : public ApplicationParameters {
-  OOPS_CONCRETE_PARAMETERS(ExternalDFIParameters, ApplicationParameters)
-
-  typedef Geometry<MODEL> Geometry_;
-  typedef State<MODEL> State_;
-  typedef ModelAuxControl<MODEL>     ModelAux_;
-
- public:
-  RequiredParameter<eckit::LocalConfiguration> geometry{"geometry",
-                   "geometry for initial state", this};
-  RequiredParameter<eckit::LocalConfiguration> initialCondition{"initial condition",
-                   "initial state parameters", this};
-  RequiredParameter<eckit::LocalConfiguration> model{"model", "forecast model parameters", this};
-  Parameter<eckit::LocalConfiguration> modelAuxControl{"model aux control",
-                   "augmented model state", eckit::LocalConfiguration(), this};
-
-  RequiredParameter<util::Duration> forecastLength{"forecast length", "forecast length", this};
-
-  Parameter<eckit::LocalConfiguration> prints{"prints", "prints during forecast",
-                                              eckit::LocalConfiguration(), this};
-  RequiredParameter<eckit::LocalConfiguration> output{"output", "where to write output", this};
-
-  RequiredParameter<eckit::LocalConfiguration> dfi{"dfi", "DFI parameters", this};
-};
-
 template <typename MODEL> class ExternalDFI : public Application {
   typedef Geometry<MODEL>            Geometry_;
   typedef Model<MODEL>               Model_;
   typedef ModelAuxControl<MODEL>     ModelAux_;
   typedef State<MODEL>               State_;
-  typedef ExternalDFIParameters<MODEL> Parameters_;
 
  public:
 // -----------------------------------------------------------------------------
@@ -72,13 +45,10 @@ template <typename MODEL> class ExternalDFI : public Application {
 // -----------------------------------------------------------------------------
   virtual ~ExternalDFI() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
-    Parameters_ params;
-    if (validate) params.validate(fullConfig);
-    params.deserialize(fullConfig);
-
-//  Setup Geometry
-    const Geometry_ resol(params.geometry, this->getComm());
+  int execute(const eckit::Configuration & fullConfig) const override {
+//  Setup resolution
+    const eckit::LocalConfiguration resolConfig(fullConfig, "geometry");
+    const Geometry_ resol(resolConfig, this->getComm());
 
 //  Setup Model
     const eckit::LocalConfiguration modelConfig(fullConfig, "model");
@@ -134,16 +104,6 @@ template <typename MODEL> class ExternalDFI : public Application {
     Log::test() << "Final state: " << zz << std::endl;
 
     return 0;
-  }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    Parameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    Parameters_ params;
-    params.validate(fullConfig);
   }
 // -----------------------------------------------------------------------------
  private:

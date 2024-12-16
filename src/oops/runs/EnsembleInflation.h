@@ -97,9 +97,8 @@ template <typename MODEL> class EnsembleInflation : public Application {
 
 // -----------------------------------------------------------------------------
 
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     EnsembleInflationParameters<MODEL> params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
     // Setup geometry
@@ -127,17 +126,6 @@ template <typename MODEL> class EnsembleInflation : public Application {
     }
     return 0;
 }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    EnsembleInflationParameters<MODEL> params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    EnsembleInflationParameters<MODEL> params;
-    params.validate(fullConfig);
-  }
-
 // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {

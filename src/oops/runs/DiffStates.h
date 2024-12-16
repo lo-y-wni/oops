@@ -67,10 +67,9 @@ template <typename MODEL> class DiffStates : public Application {
 // -----------------------------------------------------------------------------
   virtual ~DiffStates() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     DiffStatesParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 //  Setup resolutions
@@ -98,16 +97,6 @@ template <typename MODEL> class DiffStates : public Application {
     Log::test() << "Output increment: " << dx << std::endl;
 
     return 0;
-  }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    DiffStatesParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    DiffStatesParameters_ params;
-    params.validate(fullConfig);
   }
 // -----------------------------------------------------------------------------
  private:

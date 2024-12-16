@@ -69,10 +69,9 @@ class EnsembleForecastApplication : public Application {
 // -----------------------------------------------------------------------------
   virtual ~EnsembleForecastApplication() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     EnsembleForecastApplicationParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 
@@ -137,7 +136,7 @@ class EnsembleForecastApplication : public Application {
        if ( m == mymember ) {
          Log::trace() << "running on mymember = " << mymember  << " " << mytask << std::endl;
 //         APP ensapp(commMember);
-         executeForecast(resol, memberConf, validate, post);
+         executeForecast(resol, memberConf, post);
          Log::trace() << "Done with ens execute\n";
        }
        if ( batchsize > 0 ) {  // don't divide by zero
@@ -154,9 +153,8 @@ class EnsembleForecastApplication : public Application {
      return 0;
   }
 // -----------------------------------------------------------------------------
-  void executeForecast(const Geometry_ & resol,
-      const eckit::Configuration & fullConfig,
-      bool validate, PostProcessor<State_> & post) const {
+  void executeForecast(const Geometry_ & resol, const eckit::Configuration & fullConfig,
+                       PostProcessor<State_> & post) const {
 //  Setup Model
     Log::info() << "Forecast:setting up model" << std::endl;
     const Model_ model(resol, eckit::LocalConfiguration(fullConfig, "model"));
@@ -179,24 +177,6 @@ class EnsembleForecastApplication : public Application {
     Log::info() << "Forecast:done running forecast" << std::endl;
   }
 
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    EnsembleForecastApplicationParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    EnsembleForecastApplicationParameters_ params;
-    params.validate(fullConfig);
-    // For ensemble applications also need to validate individual yamls
-    APP ensapp(oops::mpi::world());
-    params.deserialize(fullConfig);
-    for (size_t jj = 0; jj < params.files.value().size(); ++jj) {
-      const eckit::PathName confPath(params.files.value()[jj]);
-      const eckit::YAMLConfiguration memberConf(confPath);
-      ensapp.validateConfig(memberConf);
-    }
-  }
 // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {

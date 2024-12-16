@@ -90,10 +90,9 @@ template <typename MODEL> class ConvertState : public Application {
 // -------------------------------------------------------------------------------------------------
   virtual ~ConvertState() {}
 // -------------------------------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     ConvertStateParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 //  Setup resolution for input and output
@@ -155,21 +154,11 @@ template <typename MODEL> class ConvertState : public Application {
     return 0;
   }
 // -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    ConvertStateParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    ConvertStateParameters_ params;
-    params.validate(fullConfig);
-  }
-// -------------------------------------------------------------------------------------------------
  private:
   std::string appname() const override {
     return "oops::ConvertState<" + MODEL::name() + ">";
   }
-// -------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 };
 
 }  // namespace oops

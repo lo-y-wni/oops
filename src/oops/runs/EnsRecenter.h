@@ -74,10 +74,9 @@ template <typename MODEL> class EnsRecenter : public Application {
   // -----------------------------------------------------------------------------
   virtual ~EnsRecenter() {}
   // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     // Deserialize parameters
     EnsRecenterParameters<MODEL> params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
     // Setup Geometry
@@ -122,17 +121,7 @@ template <typename MODEL> class EnsRecenter : public Application {
 
     return 0;
   }
-  // -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    EnsRecenterParameters<MODEL> params;
-    params.outputSchema(outputPath);
-  }
 // -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    EnsRecenterParameters<MODEL> params;
-    params.validate(fullConfig);
-  }
-  // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {
     return "oops::EnsRecenter<" + MODEL::name() + ">";

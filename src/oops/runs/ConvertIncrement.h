@@ -97,10 +97,9 @@ template <typename MODEL> class ConvertIncrement : public Application {
 // -------------------------------------------------------------------------------------------------
   virtual ~ConvertIncrement() {}
 // -------------------------------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     ConvertIncrementParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 //  Setup resolution for intput and output
@@ -166,21 +165,11 @@ template <typename MODEL> class ConvertIncrement : public Application {
     return 0;
   }
 // -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    ConvertIncrementParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    ConvertIncrementParameters_ params;
-    params.validate(fullConfig);
-  }
-// -------------------------------------------------------------------------------------------------
  private:
   std::string appname() const override {
     return "oops::ConvertIncrement<" + MODEL::name() + ">";
   }
-// -------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 };
 
 }  // namespace oops

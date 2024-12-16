@@ -54,7 +54,7 @@ template <typename MODEL> class AdjointForecast : public Application {
 // -----------------------------------------------------------------------------
   virtual ~AdjointForecast() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     eckit::LocalConfiguration tlConf(fullConfig, "linear forecast");
     eckit::LocalConfiguration adConf(fullConfig, "adjoint forecast");
     eckit::LocalConfiguration aspectConf(fullConfig, "forecast aspect");
@@ -146,10 +146,6 @@ template <typename MODEL> class AdjointForecast : public Application {
 
     return 0;
   }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {}
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {}
 // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {

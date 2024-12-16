@@ -126,10 +126,9 @@ template <typename MODEL> class ConvertToStructuredGrid : public Application {
 // -----------------------------------------------------------------------------
   virtual ~ConvertToStructuredGrid() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     ConvertToStructuredGridParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 // -----------------------------------------------------------------------------
@@ -211,16 +210,6 @@ template <typename MODEL> class ConvertToStructuredGrid : public Application {
     return 0;
   }
 // -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    ConvertToStructuredGridParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    ConvertToStructuredGridParameters_ params;
-    params.validate(fullConfig);
-  }
-// -------------------------------------------------------------------------------------------------
  private:
   std::string appname() const override {
     return "oops::ConvertToStructuredGrid<" + MODEL::name() + ">";

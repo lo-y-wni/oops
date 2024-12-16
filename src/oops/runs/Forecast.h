@@ -47,7 +47,7 @@ template <typename MODEL> class Forecast : public Application {
 // -----------------------------------------------------------------------------
   virtual ~Forecast() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Setup resolution
     const Geometry_ resol(eckit::LocalConfiguration(fullConfig, "geometry"), this->getComm());
 
@@ -95,10 +95,6 @@ template <typename MODEL> class Forecast : public Application {
 
     return 0;
   }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string &) const override {}
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration &) const override {}
 // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {

@@ -89,9 +89,8 @@ template <typename MODEL> class SqrtOfVertLoc : public Application {
 // -----------------------------------------------------------------------------
   virtual ~SqrtOfVertLoc() = default;
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     Parameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
     const double truncationTolerance = params.truncationTolerance;
@@ -153,16 +152,6 @@ template <typename MODEL> class SqrtOfVertLoc : public Application {
       }
     }
     return 0;
-  }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    Parameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    Parameters_ params;
-    params.validate(fullConfig);
   }
 // -----------------------------------------------------------------------------
  private:

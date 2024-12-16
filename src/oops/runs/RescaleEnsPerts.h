@@ -88,11 +88,10 @@ template <typename MODEL> class RescaleEnsPerts : public Application {
   virtual ~RescaleEnsPerts() {}
 
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     Log::trace() << "RescaleEnsPerts: execute start" << std::endl;
 
     RescaleEnsPertsParameters<MODEL> params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
     // Setup geometry
@@ -132,17 +131,6 @@ template <typename MODEL> class RescaleEnsPerts : public Application {
 
   return 0;
 }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    RescaleEnsPertsParameters<MODEL> params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    RescaleEnsPertsParameters<MODEL> params;
-    params.validate(fullConfig);
-  }
-
 // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {

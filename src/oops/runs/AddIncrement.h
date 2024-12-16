@@ -83,10 +83,9 @@ template <typename MODEL> class AddIncrement : public Application {
 // -----------------------------------------------------------------------------
   virtual ~AddIncrement() {}
 // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Load input configuration options
     AddIncrementParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 //  Setup resolution
@@ -122,16 +121,6 @@ template <typename MODEL> class AddIncrement : public Application {
     Log::test() << "State plus increment: " << xx << std::endl;
 
     return 0;
-  }
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    AddIncrementParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    AddIncrementParameters_ params;
-    params.validate(fullConfig);
   }
 // -----------------------------------------------------------------------------
  private:

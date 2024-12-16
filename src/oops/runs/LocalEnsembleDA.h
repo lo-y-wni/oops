@@ -182,10 +182,9 @@ template <typename MODEL, typename OBS> class LocalEnsembleDA : public Applicati
 
 // -----------------------------------------------------------------------------
 
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
     // Deserialize parameters
     LocalEnsembleDAParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
     //  Setup observation window
@@ -542,17 +541,6 @@ template <typename MODEL, typename OBS> class LocalEnsembleDA : public Applicati
         Log::test() << strOut << var << std::endl;
       }
     }
-  }
-
-// -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    LocalEnsembleDAParameters_ params;
-    params.outputSchema(outputPath);
-  }
-// -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    LocalEnsembleDAParameters_ params;
-    params.validate(fullConfig);
   }
 
 // -----------------------------------------------------------------------------

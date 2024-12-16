@@ -79,10 +79,9 @@ template <typename MODEL> class EnsMeanAndVariance : public Application {
   // -----------------------------------------------------------------------------
   virtual ~EnsMeanAndVariance() {}
   // -----------------------------------------------------------------------------
-  int execute(const eckit::Configuration & fullConfig, bool validate) const override {
+  int execute(const eckit::Configuration & fullConfig) const override {
 //  Deserialize parameters
     EnsMeanAndVarianceParameters_ params;
-    if (validate) params.validate(fullConfig);
     params.deserialize(fullConfig);
 
 //  Setup Geometry
@@ -135,22 +134,12 @@ template <typename MODEL> class EnsMeanAndVariance : public Application {
 
     return 0;
   }
-  // -----------------------------------------------------------------------------
-  void outputSchema(const std::string & outputPath) const override {
-    EnsMeanAndVarianceParameters_ params;
-    params.outputSchema(outputPath);
-  }
 // -----------------------------------------------------------------------------
-  void validateConfig(const eckit::Configuration & fullConfig) const override {
-    EnsMeanAndVarianceParameters_ params;
-    params.validate(fullConfig);
-  }
-  // -----------------------------------------------------------------------------
  private:
   std::string appname() const override {
     return "oops::EnsMeanAndVariance<" + MODEL::name() + ">";
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 };
 
 }  // namespace oops
