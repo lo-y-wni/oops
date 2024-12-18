@@ -449,6 +449,7 @@ oops/util/workflow.h
 oops/util/workflow.cc
 oops/util/WorkflowUpdater.h
 
+oops/util/parameters/ArrayConstraints.h
 oops/util/parameters/ConfigurationParameter.cc
 oops/util/parameters/ConfigurationParameter.h
 oops/util/parameters/EmptyParameters.h
